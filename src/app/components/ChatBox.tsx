@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 export default function ChatBox() {
   const [messages, setMessages] = useState<any[]>([]);
@@ -34,9 +36,12 @@ export default function ChatBox() {
     const sug: string[] = [];
 
     if (text.includes("aws")) sug.push("Explain Vishal's AWS projects");
-    if (text.includes("ai") || text.includes("rag")) sug.push("How did Vishal build his AI systems?");
-    if (text.includes("experience")) sug.push("Which company did Vishal learn the most from?");
-    if (text.includes("project")) sug.push("What was the biggest challenge Vishal solved?");
+    if (text.includes("ai") || text.includes("rag"))
+      sug.push("How did Vishal build his AI systems?");
+    if (text.includes("experience"))
+      sug.push("Which company did Vishal learn the most from?");
+    if (text.includes("project"))
+      sug.push("What was the biggest challenge Vishal solved?");
 
     return sug.length ? sug : baseSuggestions;
   }, [messages]);
@@ -64,17 +69,41 @@ export default function ChatBox() {
     setQuestion("");
     setIsThinking(true);
 
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      body: JSON.stringify({ question: finalQ }),
-    });
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        body: JSON.stringify({ question: finalQ }),
+      });
 
-    const data = await res.json();
-    const answer = data.answer;
+      const data = await res.json();
 
-    setIsThinking(false);
-    setMessages((prev) => [...prev, { role: "ai", text: answer }]);
-    setTypingIndex(0);
+      setIsThinking(false);
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "ai",
+          text: data.answer || "⚠️ Something went wrong",
+          isBuilding: data.isBuilding || false,
+        },
+      ]);
+
+      setTypingIndex(0);
+    } catch (err) {
+      console.error(err);
+
+      setIsThinking(false);
+
+      // 🔥 fallback UI
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "ai",
+          text: "🤖 Warming up AI engine...",
+          isBuilding: true,
+        },
+      ]);
+    }
   };
 
   const handleKeyDown = (e: any) => {
@@ -139,11 +168,9 @@ export default function ChatBox() {
           animate={{ opacity: 1, scale: 1 }}
           className="fixed bottom-6 right-6 w-[380px] h-[560px] bg-gradient-to-br from-[#0f172a]/90 via-[#1e1b4b]/80 to-[#0f172a]/90 backdrop-blur-xl border border-white/10 rounded-2xl flex flex-col z-50 shadow-2xl overflow-hidden cursor-grab"
         >
-
           {/* Header with interactive eyes */}
           <div className="flex justify-between items-center p-4 border-b border-white/10 bg-white/5 cursor-move">
             <div className="flex items-center gap-2">
-
               {/* 👀 Robot eyes (interactive) */}
               <div className="flex items-center gap-1">
                 <motion.span
@@ -171,24 +198,60 @@ export default function ChatBox() {
               </motion.span>
             </div>
 
-            <button onClick={() => setOpen(false)} className="hover:text-red-400 transition">✖</button>
+            <button
+              onClick={() => setOpen(false)}
+              className="hover:text-red-400 transition"
+            >
+              ✖
+            </button>
           </div>
 
           {/* Floating Background */}
           <div className="absolute inset-0 pointer-events-none opacity-10 text-xs text-white">
             {Array.from({ length: 25 }).map((_, i) => {
               const words = [
-                "Node.js","JavaScript","AWS","RAG","OpenAI","Pinecone","LangChain","JavaScript","socket.io","Tech Lead","Backend-Developer",
-                "Microservices","Azure","WebSockets","TypeScript","API","Node.js","Cloud","AI","Chai","JEST","Docker","REST","GraphQL","Serverless","BTP"
+                "Node.js",
+                "JavaScript",
+                "AWS",
+                "RAG",
+                "OpenAI",
+                "Pinecone",
+                "LangChain",
+                "JavaScript",
+                "socket.io",
+                "Tech Lead",
+                "Backend-Developer",
+                "Microservices",
+                "Azure",
+                "WebSockets",
+                "TypeScript",
+                "API",
+                "Node.js",
+                "Cloud",
+                "AI",
+                "Chai",
+                "JEST",
+                "Docker",
+                "REST",
+                "GraphQL",
+                "Serverless",
+                "BTP",
               ];
               return (
                 <motion.span
                   key={i}
                   initial={{ y: 100, opacity: 0 }}
                   animate={{ y: -150, opacity: [0, 1, 0] }}
-                  transition={{ duration: 2 + Math.random() * 3, repeat: Infinity, delay: Math.random() * 2 }}
+                  transition={{
+                    duration: 2 + Math.random() * 3,
+                    repeat: Infinity,
+                    delay: Math.random() * 2,
+                  }}
                   className="absolute"
-                  style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                  }}
                 >
                   {words[Math.floor(Math.random() * words.length)]}
                 </motion.span>
@@ -201,13 +264,20 @@ export default function ChatBox() {
             {messages.map((m, i) => {
               const isLast = i === messages.length - 1;
               return (
-                <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div
+                  key={i}
+                  className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+                >
                   <div
                     className={`px-4 py-2 rounded-xl text-sm max-w-[75%] ${
-                      m.role === "user" ? "bg-purple-600 text-white" : "bg-white/10 text-gray-200"
+                      m.role === "user"
+                        ? "bg-purple-600 text-white"
+                        : "bg-white/10 text-gray-200"
                     }`}
                   >
-                    {m.role === "ai" && isLast ? m.text.slice(0, typingIndex) : m.text}
+                    {m.role === "ai" && isLast
+                      ? m.text.slice(0, typingIndex)
+                      : m.text}
                   </div>
                 </div>
               );
@@ -221,7 +291,20 @@ export default function ChatBox() {
                   exit={{ opacity: 0 }}
                   className="text-gray-400 text-sm"
                 >
-                  AI is thinking...
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="text-purple-300 text-sm flex items-center gap-2"
+                  >
+                    <motion.span
+                      animate={{ scale: [1, 1.4, 1] }}
+                      transition={{ repeat: Infinity, duration: 1 }}
+                    >
+                      🧠
+                    </motion.span>
+                    Thinking...
+                  </motion.div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -254,9 +337,16 @@ export default function ChatBox() {
               className="flex-1 p-2 bg-white/10 rounded-lg outline-none placeholder:text-gray-400"
             />
 
-            <button onClick={() => SpeechRecognition.startListening()}>🎤</button>
+            <button onClick={() => SpeechRecognition.startListening()}>
+              🎤
+            </button>
 
-            <button onClick={() => ask()} className="px-3 rounded-lg bg-purple-600 hover:bg-purple-700">➤</button>
+            <button
+              onClick={() => ask()}
+              className="px-3 rounded-lg bg-purple-600 hover:bg-purple-700"
+            >
+              ➤
+            </button>
           </div>
         </motion.div>
       )}
