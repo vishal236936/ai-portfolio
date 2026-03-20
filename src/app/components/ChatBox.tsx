@@ -177,7 +177,10 @@ export default function ChatBox() {
           {/* Floating Background */}
           <div className="absolute inset-0 pointer-events-none opacity-10 text-xs text-white">
             {Array.from({ length: 25 }).map((_, i) => {
-              const words = ["Node.js","JavaScript","AWS","RAG","OpenAI","Pinecone","LangChain","Microservices","WebSockets","TypeScript","API","Cloud","AI","Docker"];
+              const words = [
+                "Node.js","JavaScript","AWS","RAG","OpenAI","Pinecone","LangChain","JavaScript","socket.io","Tech Lead","Backend-Developer",
+                "Microservices","Azure","WebSockets","TypeScript","API","Node.js","Cloud","AI","Chai","JEST","Docker","REST","GraphQL","Serverless","BTP"
+              ];
               return (
                 <motion.span
                   key={i}
