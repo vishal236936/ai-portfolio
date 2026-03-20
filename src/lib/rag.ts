@@ -1,7 +1,3 @@
-import fs from "fs";
-import path from "path";
-import pdfParse from "pdf-parse";
-
 import OpenAI from "openai";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -21,22 +17,23 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 let isIndexed = false;
 
-// 🔥 Get PDF dynamically
-function getPdfPath() {
+// 🔥 Create embeddings + upload to Pinecone
+export async function initRAG() {
+  if (isIndexed) return;
+
+  // ✅ dynamic imports (VERY IMPORTANT)
+  const fs = (await import("fs")).default;
+  const path = (await import("path")).default;
+  const pdfParse = (await import("pdf-parse")).default;
+
   const dir = path.join(process.cwd(), "src/data");
   const files = fs.readdirSync(dir);
 
   const pdf = files.find((f) => f.endsWith(".pdf"));
   if (!pdf) throw new Error("No PDF found");
 
-  return path.join(dir, pdf);
-}
+  const pdfPath = path.join(dir, pdf);
 
-// 🔥 Create embeddings + upload to Pinecone
-export async function initRAG() {
-  if (isIndexed) return;
-
-  const pdfPath = getPdfPath();
   const buffer = fs.readFileSync(pdfPath);
   const data = await pdfParse(buffer);
 
