@@ -303,7 +303,7 @@ export default function ChatBot({ onClose }: { onClose: () => void }) {
         body: JSON.stringify({ message: trimmed }),
       });
       const data = await res.json();
-      const reply = data.reply || "Sorry, I couldn't get a response. Please try again.";
+      const reply = data.reply || "Sorry, I am warming up on data... Please try again in some time.";
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
       speak(reply);
     } catch {
@@ -369,16 +369,16 @@ export default function ChatBot({ onClose }: { onClose: () => void }) {
 
   return (
     <motion.div
-      drag
+      drag={typeof window !== "undefined" && window.innerWidth >= 768}
       dragControls={dragControls}
       dragMomentum={false}
-      dragElastic={0.05}
+      dragElastic={0}
       initial={{ opacity: 0, y: 60, scale: 0.92 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 60, scale: 0.92 }}
       transition={{ type: "spring", damping: 22, stiffness: 280 }}
       className="fixed z-50 rounded-2xl border border-[#00D4FF]/20 bg-[#07101A]/96 backdrop-blur-2xl [-webkit-backdrop-filter:blur(24px)] shadow-[0_0_60px_rgba(0,212,255,0.18),0_0_120px_rgba(123,47,255,0.1)] flex flex-col overflow-hidden w-[95vw] md:w-[400px] left-[2.5vw] md:left-auto md:right-6 bottom-20 md:bottom-28"
-      style={{ maxHeight: "min(78dvh, 78vh)", minHeight: "min(520px, 70dvh)", cursor: "auto" }}
+      style={{ maxHeight: "78vh", minHeight: "480px", cursor: "auto" }}
     >
       {/* ── Animated tech background ── */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-2xl">
@@ -402,6 +402,7 @@ export default function ChatBot({ onClose }: { onClose: () => void }) {
       <div
         className="relative z-10 flex items-center justify-between px-4 py-3 border-b border-white/5 bg-white/[0.03] cursor-grab active:cursor-grabbing select-none touch-none"
         onPointerDown={(e) => dragControls.start(e)}
+        onTouchStart={(e) => dragControls.start(e as any)}
       >
         <div className="flex items-center gap-3">
           <RobotFace isTalking={isTalking} isListening={isListening} />

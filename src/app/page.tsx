@@ -1,16 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import ChatBot from "./components/ChatBot";
-import HeroSection from "./components/HeroSection";
-import AboutSection from "./components/AboutSection";
-import ExperienceSection from "./components/ExperienceSection";
-import ProjectsSection from "./components/ProjectsSection";
-import SkillsSection from "./components/SkillsSection";
-import ContactSection from "./components/ContactSection";
-import NavBar from "./components/NavBar";
-import ParticleBackground from "./components/ParticleBackground";
+import { motion, AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
+
+// Dynamic imports — each component loads after React mounts
+// Prevents iOS Safari from crashing on initial JS bundle parse
+const NavBar           = dynamic(() => import("./components/NavBar"),           { ssr: false });
+const ParticleBackground = dynamic(() => import("./components/ParticleBackground"), { ssr: false });
+const HeroSection      = dynamic(() => import("./components/HeroSection"),      { ssr: true });
+const AboutSection     = dynamic(() => import("./components/AboutSection"),     { ssr: false });
+const ExperienceSection = dynamic(() => import("./components/ExperienceSection"), { ssr: false });
+const ProjectsSection  = dynamic(() => import("./components/ProjectsSection"),  { ssr: false });
+const SkillsSection    = dynamic(() => import("./components/SkillsSection"),    { ssr: false });
+const ContactSection   = dynamic(() => import("./components/ContactSection"),   { ssr: false });
+const ChatBot          = dynamic(() => import("./components/ChatBot"),          { ssr: false });
 
 export default function Home() {
   const [chatOpen, setChatOpen] = useState(false);

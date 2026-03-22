@@ -10,7 +10,6 @@ const PROJECTS = [
     description:
       "Built from scratch in my spare time — a GenAI-powered portfolio with a live RAG chatbot that answers real-time questions about me. Pinecone for vector storage, LangChain for orchestration, OpenAI + Gemini for multi-model responses. Deployed on Vercel.",
     link: "https://vishal-portfolio-neon.vercel.app/",
-    github: "https://github.com/vishal236936/ai-portfolio",
     tags: ["Pinecone", "LangChain", "OpenAI", "Gemini", "Next.js", "RAG", "Vercel"],
     color: "#00D4FF",
     badge: "Live · Personal",
@@ -82,7 +81,7 @@ const PROJECTS = [
 
 export default function ProjectsSection() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-10px" });
 
   return (
     <section id="projects" ref={ref} className="relative py-20 px-6 max-w-6xl mx-auto overflow-visible">
@@ -128,16 +127,6 @@ export default function ProjectsSection() {
                   {project.badge}
                 </span>
                 <div className="flex gap-2">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-gray-600 hover:text-white transition-colors text-sm"
-                    >
-                      GitHub ↗
-                    </a>
-                  )}
                   {project.link && (
                     <a
                       href={project.link}

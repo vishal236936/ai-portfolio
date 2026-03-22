@@ -24,7 +24,6 @@ const SKILL_GROUPS = [
     skills: [
       { name: "Node.js", level: 97 },
       { name: "TypeScript", level: 94 },
-      { name: "JavaScript", level: 94 },
       { name: "Express.js", level: 95 },
       { name: "REST APIs", level: 97 },
       { name: "GraphQL", level: 78 },
@@ -58,7 +57,7 @@ const SKILL_GROUPS = [
 
 export default function SkillsSection() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-10px" });
 
   return (
     <section id="skills" ref={ref} className="relative py-32 px-6 max-w-6xl mx-auto">

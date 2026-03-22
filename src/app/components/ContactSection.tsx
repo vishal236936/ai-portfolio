@@ -5,7 +5,7 @@ import { useRef } from "react";
 
 export default function ContactSection() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-10px" });
 
   return (
     <section id="contact" ref={ref} className="relative py-32 px-6">
