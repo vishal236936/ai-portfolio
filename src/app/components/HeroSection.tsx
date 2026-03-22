@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ROLES = [
   "Senior Backend Engineer",
@@ -39,15 +39,9 @@ function AnimatedRoles({ roles }: { roles: string[] }) {
 }
 
 export default function HeroSection({ onOpenChat }: { onOpenChat: () => void }) {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 160]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
   return (
     <section
       id="hero"
-      ref={ref}
       className="relative min-h-screen flex flex-col px-6 pt-24 pb-20 overflow-visible"
     >
       {/* Grid overlay */}
@@ -64,10 +58,7 @@ export default function HeroSection({ onOpenChat }: { onOpenChat: () => void }) 
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#00D4FF] rounded-full blur-[180px] opacity-10 pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#7B2FFF] rounded-full blur-[160px] opacity-10 pointer-events-none" />
 
-      <motion.div
-        style={{ y, opacity }}
-        className="relative z-10 text-center max-w-5xl mx-auto w-full flex flex-col items-center"
-      >
+      <div className="relative z-10 text-center max-w-5xl mx-auto w-full flex flex-col items-center">
         {/* Status badge */}
         <motion.div
           initial={{ opacity: 0, y: -16 }}
@@ -197,7 +188,7 @@ export default function HeroSection({ onOpenChat }: { onOpenChat: () => void }) 
             </div>
           ))}
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Scroll indicator */}
       <motion.div
