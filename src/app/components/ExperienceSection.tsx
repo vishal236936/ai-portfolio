@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import OpenAI from "openai";
 import { useRef } from "react";
 
 interface Experience {
@@ -136,11 +135,7 @@ export default function ExperienceSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section
-      id="experience"
-      ref={ref}
-      className="relative py-20 px-6 max-w-5xl mx-auto overflow-visible"
-    >
+    <section id="experience" ref={ref} className="relative py-20 px-6 max-w-5xl mx-auto overflow-visible">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -187,35 +182,20 @@ export default function ExperienceSection() {
                 <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                   <div>
                     <h3 className="text-white font-bold text-xl">{exp.role}</h3>
-                    <p
-                      style={{ color: exp.color }}
-                      className="font-medium mt-0.5"
-                    >
+                    <p style={{ color: exp.color }} className="font-medium mt-0.5">
                       {exp.company}
                     </p>
                   </div>
                   <div className="text-right">
-                    <div className="text-gray-400 text-sm font-mono">
-                      {exp.period}
-                    </div>
-                    <div className="text-gray-600 text-xs mt-0.5">
-                      {exp.location}
-                    </div>
+                    <div className="text-gray-400 text-sm font-mono">{exp.period}</div>
+                    <div className="text-gray-600 text-xs mt-0.5">{exp.location}</div>
                   </div>
                 </div>
 
                 <ul className="space-y-2 mb-5">
                   {exp.bullets.map((b, bi) => (
-                    <li
-                      key={bi}
-                      className="flex gap-3 text-gray-400 text-sm leading-relaxed"
-                    >
-                      <span
-                        style={{ color: exp.color }}
-                        className="mt-1 shrink-0 text-xs"
-                      >
-                        ▸
-                      </span>
+                    <li key={bi} className="flex gap-3 text-gray-400 text-sm leading-relaxed">
+                      <span style={{ color: exp.color }} className="mt-1 shrink-0 text-xs">▸</span>
                       {b}
                     </li>
                   ))}
@@ -224,9 +204,7 @@ export default function ExperienceSection() {
                 {/* Key Projects strip */}
                 {exp.projects && (
                   <div className="mb-4">
-                    <p className="text-xs font-mono text-gray-600 uppercase tracking-wider mb-2">
-                      Key Projects
-                    </p>
+                    <p className="text-xs font-mono text-gray-600 uppercase tracking-wider mb-2">Key Projects</p>
                     <div className="flex flex-wrap gap-2">
                       {exp.projects.map((proj) => (
                         <span
@@ -268,9 +246,7 @@ function SectionLabel({ children }: { children: string }) {
   return (
     <div className="flex items-center gap-3 mb-4">
       <div className="w-6 h-px bg-[#00D4FF]" />
-      <span className="text-[#00D4FF] text-sm font-mono uppercase tracking-widest">
-        {children}
-      </span>
+      <span className="text-[#00D4FF] text-sm font-mono uppercase tracking-widest">{children}</span>
     </div>
   );
 }

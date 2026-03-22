@@ -17,6 +17,16 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Lock body scroll on iOS when chatbot is open
+  useEffect(() => {
+    if (chatOpen) {
+      document.body.classList.add("chatbot-open");
+    } else {
+      document.body.classList.remove("chatbot-open");
+    }
+    return () => document.body.classList.remove("chatbot-open");
+  }, [chatOpen]);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {

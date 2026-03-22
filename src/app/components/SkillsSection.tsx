@@ -24,6 +24,7 @@ const SKILL_GROUPS = [
     skills: [
       { name: "Node.js", level: 97 },
       { name: "TypeScript", level: 94 },
+      { name: "JavaScript", level: 94 },
       { name: "Express.js", level: 95 },
       { name: "REST APIs", level: 97 },
       { name: "GraphQL", level: 78 },
