@@ -28,7 +28,7 @@ export default function AboutSection() {
           <div className="space-y-5 text-gray-400 text-lg leading-relaxed">
             <p>
               I'm a Backend Engineer based in{" "}
-              <span className="text-white">Greater Noida, India</span> — building
+              <span className="text-white">Noida, India</span> — building
               systems that don't just demo well, they run at scale.
             </p>
             <p>
@@ -58,7 +58,7 @@ export default function AboutSection() {
           {/* Detail cards */}
           <div className="grid grid-cols-2 gap-4">
             {[
-              { icon: "📍", label: "Location", value: "Greater Noida, India" },
+              { icon: "📍", label: "Location", value: "Noida, India" },
               { icon: "🌐", label: "Timezone", value: "IST (UTC+5:30)" },
               { icon: "💼", label: "Open to", value: "Remote/WFO Roles" },
               { icon: "🎂", label: "Born", value: "1 September 1996" },

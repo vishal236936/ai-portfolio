@@ -26,8 +26,8 @@ export default function ContactSection() {
           </span>
         </h2>
         <p className="text-gray-400 text-xl mb-12 leading-relaxed">
-          I'm actively looking for remote Backend / GenAI engineering roles with US and UK companies.
-          If you're hiring — or just want to talk about RAG systems — let's connect.
+          I'm actively looking for remote Node.js Backend / GenAI engineering roles with companies.
+          If you're hiring — or just want to talk about my professional journey — let's connect.
         </p>
 
         <div className="flex flex-wrap gap-4 justify-center mb-14">
