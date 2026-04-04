@@ -1,7 +1,7 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Stars, useGLTF, useAnimations, Float, DragControls, useCursor } from "@react-three/drei";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Environment, Stars, useGLTF, useAnimations, Float, DragControls, useCursor, ContactShadows } from "@react-three/drei";
 import { useEffect, useRef, useState, Suspense } from "react";
 import * as THREE from "three";
 
@@ -18,19 +18,22 @@ function CharacterAvatar() {
   const { scene, animations } = useGLTF("/avatar.glb");
   const { actions } = useAnimations(animations, groupRef);
 
-  // Play animation on mount and recolor to bright Cyan
+  // Play animation on mount and upgrade materials to Apple-style metallic PBR
   useEffect(() => {
-    // Recolor yellow parts to the brand's cyan/blue
     scene.traverse((child: any) => {
       if (child.isMesh && child.material) {
         const materials = Array.isArray(child.material) ? child.material : [child.material];
         materials.forEach((mat: any) => {
+          // Apple-style premium polished look: highly reflective and metallic
+          mat.metalness = 0.8;
+          mat.roughness = 0.15;
+          mat.envMapIntensity = 2.0;
+
           if (mat.color) {
-            // Recolor original yellow body and base to Cyan
+            // Convert flat neon yellow into an anodized Cyan Titanium!
             if (mat.name === "Main" || (mat.color.r > 0.5 && mat.color.g > 0.5 && mat.color.b < 0.5)) {
               mat.color.set("#00D4FF"); 
-              mat.emissive = new THREE.Color("#00D4FF");
-              mat.emissiveIntensity = 0.5; // vibrant neon glow
+              mat.emissiveIntensity = 0; // Removed flat glow so authentic 3D shadows and reflections pop!
             }
           }
         });
@@ -132,6 +135,13 @@ function CharacterAvatar() {
     // Lerp the vertical position and rotation
     groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, -1.5 - targetZ, delta * 2);
     groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotY, delta * 4);
+
+    // Apple-style 3D Camera Parallax based on Mouse Movement!
+    if (!isMobile) {
+      state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, state.pointer.x * 1.5, delta * 2);
+      state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, state.pointer.y * 1.5, delta * 2);
+      state.camera.lookAt(0, 0, 0); // Always keep the camera locked to the center of the scene
+    }
   });
 
   return (
@@ -175,6 +185,8 @@ export default function ThreeDScene() {
         <Suspense fallback={null}>
           <Environment preset="city" />
           <CharacterAvatar />
+          {/* Apple-style premium ground shadow */}
+          <ContactShadows position={[0, -2.5, 0]} opacity={0.5} scale={15} blur={2} far={4.5} color="#000000" />
         </Suspense>
         
         {/* Deep space starfield background */}
