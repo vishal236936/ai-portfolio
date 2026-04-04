@@ -25,6 +25,7 @@ const SKILL_GROUPS = [
       { name: "Node.js", level: 97 },
       { name: "TypeScript", level: 94 },
       { name: "Express.js", level: 95 },
+      { name: "PHP", level: 85 },
       { name: "REST APIs", level: 97 },
       { name: "GraphQL", level: 78 },
       { name: "Microservices", level: 90 },

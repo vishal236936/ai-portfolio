@@ -26,6 +26,51 @@ const PROJECTS = [
     badge: "Production · Enterprise",
     metrics: ["Arm Holdings client", "AWS serverless infra", "Azure OpenAI integration"],
   },
+
+  {
+    title: "AI Prediction Scoring Microservice",
+    subtitle: "Innovify · Arm Holdings · 2025",
+    description:
+      "GPT-powered scoring microservice integrated into Arm's automated decision workflows. Not a prototype — a live system making automated decisions in production via serverless AWS architecture.",
+    link: "https://notchup.com/",
+    tags: ["GPT-4", "AWS Lambda", "API Gateway", "Node.js", "TypeScript", "Microservices"],
+    color: "#A855F7",
+    badge: "Production · AI",
+    metrics: ["Live decision automation", "Serverless AWS", "GPT-4 integration"],
+  },
+  {
+    title: "Healthcare Booking Platform — Lunajoy",
+    subtitle: "Kratin Software · 2024",
+    description:
+      "End-to-end backend for Lunajoy Health's doctor + patient appointment booking. AWS Lambda + RDS + PostgreSQL under HIPAA compliance. Stripe tokenization boosted payment completion by 20%, AWS optimization cut data retrieval by 25%.",
+    link: "https://hellolunajoy.com/",
+    tags: ["AWS Lambda", "PostgreSQL", "Stripe", "HIPAA", "Node.js", "RDS"],
+    color: "#0EA5E9",
+    badge: "Production · Healthcare",
+    metrics: ["30% efficiency gain", "25% faster retrieval", "+20% payment success"],
+  },
+  {
+    title: "SmileADay",
+    subtitle: "Mckinsol Consulting · 2020–2023",
+    link: "https://smileaday.org",
+    description:
+      "A PHP-based web application that simplifies secure online payments by seamlessly integrating both PayPal and Stripe payment gateways.",
+    tags: ["PHP", "Stripe", "PayPal", "Backend APIs"],
+    color: "#F59E0B",
+    badge: "Production",
+    metrics: ["Stripe integration", "PayPal integration"],
+  },
+  {
+    title: "TimesOfPeople HR Portal",
+    subtitle: "In-House Enterprise Solution",
+    link: "https://hr.timesofpeople.com/login",
+    description:
+      "Comprehensive in-house HR management portal. Engineered the backend to handle complex employee details,attendanceTracking, timesheet tracking, agile project and sprint management, dynamic appraisal workflows, and seamless invoice reimbursements.",
+    tags: ["Node.js", "JavaScript", "PostgreSQL", "Enterprise HR"],
+    color: "#EC4899",
+    badge: "Production · HR",
+    metrics: ["Timesheets & Sprints", "Automated Appraisals", "Invoice Workflows"],
+  },
   {
     title: "GXP Article Processing System — Under Armour",
     subtitle: "Mckinsol Consulting · Client: GXP / Under Armour · 2020–2023",
@@ -56,26 +101,6 @@ const PROJECTS = [
     color: "#1D9E75",
     badge: "Production · E-commerce",
     metrics: ["Full e-commerce backend", "Razorpay integration", "DigitalOcean deployment"],
-  },
-  {
-    title: "AI Prediction Scoring Microservice",
-    subtitle: "Innovify · Arm Holdings · 2025",
-    description:
-      "GPT-powered scoring microservice integrated into Arm's automated decision workflows. Not a prototype — a live system making automated decisions in production via serverless AWS architecture.",
-    tags: ["GPT-4", "AWS Lambda", "API Gateway", "Node.js", "TypeScript", "Microservices"],
-    color: "#A855F7",
-    badge: "Production · AI",
-    metrics: ["Live decision automation", "Serverless AWS", "GPT-4 integration"],
-  },
-  {
-    title: "Healthcare Booking Platform — Lunajoy",
-    subtitle: "Kratin Software · 2024",
-    description:
-      "End-to-end backend for Lunajoy Health's doctor + patient appointment booking. AWS Lambda + RDS + PostgreSQL under HIPAA compliance. Stripe tokenization boosted payment completion by 20%, AWS optimization cut data retrieval by 25%.",
-    tags: ["AWS Lambda", "PostgreSQL", "Stripe", "HIPAA", "Node.js", "RDS"],
-    color: "#0EA5E9",
-    badge: "Production · Healthcare",
-    metrics: ["30% efficiency gain", "25% faster retrieval", "+20% payment success"],
   },
 ];
 

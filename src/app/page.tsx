@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 const Loader = () => null;
 
 const NavBar            = dynamic(() => import("./components/NavBar"),            { ssr: false, loading: Loader });
-const ParticleBackground= dynamic(() => import("./components/ParticleBackground"),{ ssr: false, loading: Loader });
+const ThreeDScene       = dynamic(() => import("./components/ThreeDScene"),       { ssr: false, loading: Loader });
 const HeroSection       = dynamic(() => import("./components/HeroSection"),       { ssr: false, loading: Loader });
 const AboutSection      = dynamic(() => import("./components/AboutSection"),      { ssr: false, loading: Loader });
 const ExperienceSection = dynamic(() => import("./components/ExperienceSection"), { ssr: false, loading: Loader });
@@ -56,13 +56,13 @@ export default function Home() {
   return (
     <main
       ref={containerRef}
-      className="relative bg-[#050A0F] min-h-screen"
+      className="relative min-h-screen"
       style={{ overflowX: "clip" }}
       suppressHydrationWarning
     >
       {mounted && (
         <>
-          <ParticleBackground />
+          <ThreeDScene />
           <NavBar activeSection={activeSection} />
           <HeroSection onOpenChat={() => setChatOpen(true)} />
           <AboutSection />
