@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState, Suspense } from "react";
-import { useEffect, useRef, useState, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 
@@ -55,16 +54,17 @@ export default function Home() {
   }, [chatOpen]);
 
   return (
-    <main ref={containerRef} className="relative bg-[#050A0F] min-h-screen" style={{ overflowX: "clip" }}>
-      <ParticleBackground />
-      <NavBar activeSection={activeSection} />
-
-      <HeroSection onOpenChat={() => setChatOpen(true)} />
-      <AboutSection />
-      <ExperienceSection />
-      <ProjectsSection />
-      <SkillsSection />
-      <ContactSection />
+    <main ref={containerRef} className="relative min-h-screen" style={{ overflowX: "clip" }} suppressHydrationWarning>
+      {mounted && (
+        <>
+          <ThreeDScene />
+          <NavBar activeSection={activeSection} />
+          <HeroSection onOpenChat={() => setChatOpen(true)} />
+          <AboutSection />
+          <ExperienceSection />
+          <ProjectsSection />
+          <SkillsSection />
+          <ContactSection />
 
           {/* Floating chat button */}
           <motion.button
