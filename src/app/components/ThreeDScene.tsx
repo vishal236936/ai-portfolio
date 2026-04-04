@@ -10,6 +10,15 @@ function CharacterAvatar() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [hovered, setHovered] = useState(false);
   const animState = useRef("Idle");
+  
+  // Track if we are on mobile to disable heavy GPU features
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Change cursor to 'grab' hand when hovering over the avatar
   useCursor(hovered, "grab", "auto");
@@ -149,19 +158,28 @@ function CharacterAvatar() {
       {/* 
         DragControls allows dragging the model ANYWHERE on the screen!
       */}
-      <DragControls>
-        <group 
-          ref={groupRef} 
-          scale={0.45} 
-          dispose={null}
-          onPointerOver={() => setHovered(true)}
-          onPointerOut={() => setHovered(false)}
-        >
+      {/* DragControls allows dragging the model ANYWHERE on the screen! */}
+      {isMobile ? (
+        <group ref={groupRef} scale={0.45} dispose={null}>
           <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
             <primitive object={scene} />
           </Float>
         </group>
-      </DragControls>
+      ) : (
+        <DragControls>
+          <group 
+            ref={groupRef} 
+            scale={0.45} 
+            dispose={null}
+            onPointerOver={() => setHovered(true)}
+            onPointerOut={() => setHovered(false)}
+          >
+            <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+              <primitive object={scene} />
+            </Float>
+          </group>
+        </DragControls>
+      )}
     </group>
   );
 }
@@ -170,12 +188,21 @@ function CharacterAvatar() {
 useGLTF.preload("/avatar.glb");
 
 export default function ThreeDScene() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
   return (
     <div className="fixed inset-0" style={{ zIndex: 0 }}>
-      {/* We add Suspense to avoid Next.js breaking during the GLTF load */}
+      {/* 
+        We add Suspense to avoid Next.js breaking during the GLTF load.
+        We also cap dpr interpolation to save memory on heavy mobile displays.
+      */}
       <Canvas
         camera={{ position: [0, 0, 8], fov: 50 }}
-        dpr={[1, 2]} // Optimize pixel ratio
+        dpr={isMobile ? [1, 1] : [1, 2]} 
+        gl={{ powerPreference: "high-performance", antialias: false }}
       >
         <ambientLight intensity={1.5} />
         <directionalLight position={[10, 10, 5]} intensity={1.5} color="#00D4FF" />
@@ -185,12 +212,14 @@ export default function ThreeDScene() {
         <Suspense fallback={null}>
           <Environment preset="city" />
           <CharacterAvatar />
-          {/* Apple-style premium ground shadow */}
-          <ContactShadows position={[0, -2.5, 0]} opacity={0.5} scale={15} blur={2} far={4.5} color="#000000" />
+          {/* Apple-style premium ground shadow (Disabled on mobile to stop GPU black-screen memory crashes) */}
+          {!isMobile && (
+            <ContactShadows position={[0, -2.5, 0]} opacity={0.5} scale={15} blur={2} far={4.5} color="#000000" />
+          )}
         </Suspense>
         
-        {/* Deep space starfield background */}
-        <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
+        {/* Deep space starfield background (Halved on mobile) */}
+        <Stars radius={100} depth={50} count={isMobile ? 1000 : 3000} factor={4} saturation={0} fade speed={1} />
       </Canvas>
     </div>
   );
