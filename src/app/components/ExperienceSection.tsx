@@ -101,7 +101,7 @@ const EXPERIENCES: Experience[] = [
   {
     company: "Mckinsol Consulting",
     role: "Sr. Software Developer",
-    period: "Feb 2020 – Aug 2023",
+    period: "Feb 2021 – Aug 2023",
     location: "Noida",
     color: "#FFB347",
     bullets: [
@@ -160,11 +160,10 @@ export default function ExperienceSection() {
                 initial={{ opacity: 0, x: -30 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: i * 0.12, duration: 0.5 }}
-                className={`relative md:pl-16 p-6 rounded-2xl border transition-all duration-300 group h-auto overflow-visible ${
-                  exp.highlight
+                className={`relative md:pl-16 p-6 rounded-2xl border transition-all duration-300 group h-auto overflow-visible ${exp.highlight
                     ? "border-[#00D4FF]/30 bg-[#00D4FF]/[0.04] hover:border-[#00D4FF]/50"
                     : "border-white/5 bg-white/[0.02] hover:border-white/10"
-                }`}
+                  }`}
               >
                 {/* Timeline dot */}
                 <div

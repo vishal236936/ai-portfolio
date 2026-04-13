@@ -40,9 +40,8 @@ export default function NavBar({ activeSection }: { activeSection: string }) {
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, delay: 0.2 }}
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled ? "bg-[#050A0F]/90 backdrop-blur-xl border-b border-white/5" : ""
-      }`}
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? "bg-[#050A0F]/90 backdrop-blur-xl border-b border-white/5" : ""
+        }`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
@@ -60,11 +59,10 @@ export default function NavBar({ activeSection }: { activeSection: string }) {
             <button
               key={item.id}
               onClick={() => scrollTo(item.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                activeSection === item.id
-                  ? "text-[#00D4FF] bg-[#00D4FF]/10"
-                  : "text-gray-500 hover:text-white hover:bg-white/5"
-              }`}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeSection === item.id
+                ? "text-[#00D4FF] bg-[#00D4FF]/10"
+                : "text-gray-500 hover:text-white hover:bg-white/5"
+                }`}
             >
               {item.label}
             </button>
@@ -74,8 +72,8 @@ export default function NavBar({ activeSection }: { activeSection: string }) {
         {/* Desktop CTAs */}
         <div className="hidden md:flex items-center gap-2">
           <motion.a
-            href="/data/Vishal_Yadav_Resume.pdf"
-            download="Vishal_Yadav_Resume.pdf"
+            href="/data/Vishal_Yadav-Resume.pdf"
+            download="Vishal_Yadav-Resume.pdf"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#00D4FF]/20 to-[#7B2FFF]/20 border border-[#00D4FF]/30 text-[#00D4FF] text-sm font-medium hover:from-[#00D4FF]/30 hover:to-[#7B2FFF]/30 hover:shadow-[0_0_20px_rgba(0,212,255,0.25)] transition-all duration-200"
@@ -125,8 +123,8 @@ export default function NavBar({ activeSection }: { activeSection: string }) {
               ))}
               <div className="pt-2 space-y-2">
                 <a
-                  href="/data/Vishal_Yadav_Resume.pdf"
-                  download="Vishal_Yadav_Resume.pdf"
+                  href="/data/Vishal_Yadav-Resume.pdf"
+                  download="Vishal_Yadav-Resume.pdf"
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-[#00D4FF]/20 to-[#7B2FFF]/20 border border-[#00D4FF]/30 text-[#00D4FF] text-sm font-medium"
                 >
