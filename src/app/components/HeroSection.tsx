@@ -143,13 +143,13 @@ export default function HeroSection({ onOpenChat }: { onOpenChat: () => void }) 
             🤖 Ask AI About Me
           </button>
           <a
-            href="/data/Vishal_Yadav_Resume.pdf"
-            download="Vishal_Yadav_Resume.pdf"
+            href="/data/Vishal_Yadav-Resume.pdf"
+            download="Vishal_Yadav-Resume.pdf"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-[#00D4FF]/30 text-[#00D4FF] font-semibold text-base hover:bg-[#00D4FF]/10 hover:shadow-[0_0_20px_rgba(0,212,255,0.2)] transition-all duration-300"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M7 1v8M4.5 7 7 9.5 9.5 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M1.5 11.5h11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+              <path d="M7 1v8M4.5 7 7 9.5 9.5 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M1.5 11.5h11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
             Download Resume
           </a>
